@@ -1,0 +1,26 @@
+\newacronym{fpga}{FPGA}{Field-Programmable Gate Array}
+\newacronym{lqr}{LQR}{Linear Quadratic Regulator}
+
+\chapter{GLOSSARY OF ACRONYMS}
+
+\section{Building a Document Glossary}
+  When using acronyms, you have to run LaTeX commands in a certain order to properly show them in the LIST OF ABBREVIATIONS glossary in the front matter.
+  \begin{enumerate}
+    \item Run pdflatex on your document to generate the .aux file.
+    \item Run makeglossaries on your document to generate the .gls files.
+    \item Run pdflatex on your document again to include the glossary in the front matter.
+  \end{enumerate}
+  If you set up \texttt{latexmk} to automatically build your document, it should run these commands in the correct order for you using the \texttt{.latexmkrc} file included in this example document.
+
+  Keep in mind that you only need to run \texttt{makeglossaries} if you made some change to the list of acronyms, or if you reference a new acronym with the \verb|\gls| command for the first time.
+
+\section{Subsequent References to Acronyms}
+  The first time you refer to a \gls{fpga}, the full name is shown along with the acronym.
+  Each subsequent usage just shows \gls{fpga}.
+
+\subsection{Unused Acronyms}
+  Unreferenced acronyms don't show up in the list of abbreviations in the front matter.
+
+\section{Plural Acronyms}
+  Using \verb|\glspl| instead of \verb|\gls| gives the plural form of the acronym.
+  \glspl{lqr} is an example of a plural acronym.

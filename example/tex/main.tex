@@ -1,0 +1,34 @@
+\documentclass[dissertation, bookmarks]{grizz_thesis}
+
+% Required information for the front matter
+\def\thesistitle{Quantized Echo Dynamics in Hypermodular Cognitive Meshes}
+\def\studentname{Zerina Voxmere}
+\def\degreename{Doctor of Philosophy in the Universe}
+\def\CommitteeChair{Caldrin Thornequill} % Committee chair required
+
+% Add the rest of your committee members here, as many as you have.
+\AddCommitteeMember{Lysette Varnyx}
+\AddCommitteeMember{Oren Kestrelune}
+\AddCommitteeMember{Myraxel Duskroot}
+
+%%% Change bibliography style to match your discipline here
+% IEEE
+\bibliographystyle{ieeetr}
+
+% APA
+% \usepackage{apacite}
+% \bibliographystyle{apacite}
+
+\begin{document}
+  \StartFrontMatter
+  \include{front_matter}
+
+  \StartMainBody
+  \include{chapter1}
+  \include{chapter2}
+
+  \StartAppendices
+  \include{appendixA}
+
+  \PrintReferences
+\end{document}
