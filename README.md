@@ -1,6 +1,7 @@
 # grizz_thesis_tex
 
-A LaTeX document class for Oakland University theses and dissertations, along with an example of how to use it.
+A LaTeX document class for Oakland University theses and dissertations.
+In addition to the document class, there is an example of how to use it as well as an AI-generated test document to make sure a full-size document does not trigger corner cases that don't typeset properly.
 
 Reference images used in example figures are taken from the [NASA Image and Video Library](https://images.nasa.gov/).
 

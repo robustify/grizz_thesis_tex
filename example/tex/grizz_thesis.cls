@@ -23,7 +23,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{grizz_thesis}
 \LoadClass[12pt, oneside]{book}
-\pagestyle{plain}
 
 % Class options
 % dissertation: use "Dissertation" instead of "Thesis" on title page, and "Doctoral" instead of "Thesis" in committee listing.
@@ -39,27 +38,29 @@
 \ProcessOptions \relax
 
 % Necessary packages
-\RequirePackage[left=1.5in,right=1in,top=1in,bottom=1.25in, includefoot]{geometry}		% Margins
-\RequirePackage{graphicx}
-\RequirePackage{etoolbox}
-\RequirePackage{fmtcount}
-\RequirePackage[nonumberlist, nopostdot]{glossaries}
-\makeglossaries
-\RequirePackage{fancyhdr}
-\RequirePackage{setspace}
-\RequirePackage[explicit]{titlesec}
-\RequirePackage{titletoc}
-\RequirePackage{tocloft}
-\RequirePackage[normalem]{ulem}
-\RequirePackage{array}
+\RequirePackage[left=1.5in,right=1in,top=1in,bottom=1.25in, includefoot]{geometry} % Margins
+\RequirePackage{graphicx} % For including images in figures
+\RequirePackage{etoolbox} % For \gappto to accumulate committee members
+\RequirePackage{fmtcount} % For \NUMBERstring to get "One", "Two", etc. in chapter titles
+\RequirePackage[nonumberlist, nopostdot]{glossaries} % For the list of abbreviations
+\RequirePackage{fancyhdr} % For custom page styles in the front matter
+\RequirePackage{setspace} % For line spacing
+\RequirePackage[explicit]{titlesec} % For custom chapter/section title formatting
+\RequirePackage{titletoc} % For custom table of contents formatting
+\RequirePackage{tocloft} % For custom table of contents formatting
+\RequirePackage[normalem]{ulem} % For underlining section titles
+\RequirePackage{array} % For custom table column types
+\RequirePackage{times} % Only Times New Roman for now, will add more options later with the university's approval
+\RequirePackage[all, defaultlines=3]{nowidow} % To prevent widows and orphans in the text
 \ifbookmarks
-  \RequirePackage[bookmarks, hidelinks, bookmarksopen, bookmarksnumbered]{hyperref}
+  \RequirePackage[bookmarks, hidelinks, bookmarksopen, bookmarksnumbered]{hyperref} % For PDF bookmarks and hyperlinks
 \fi
 
 % Command to configure the page formatting for the front matter
 % Call this at the very beginning of the document
 \newcommand{\StartFrontMatter}{
-	\singlespacing
+  \singlespacing
+  \pagestyle{normal}
   \pagenumbering{roman}
   \titleformat
     {\chapter}
@@ -101,6 +102,7 @@
 \newcommand{\StartAppendices}{
   \setcounter{chapter}{0}
   \renewcommand\thefigure{\Alph{chapter}.\arabic{figure}}
+  \renewcommand\thetable{\Alph{chapter}.\arabic{table}}
   \renewcommand\theequation{\Alph{chapter}.\arabic{equation}}
   \renewcommand\thesection{\Alph{chapter}.\arabic{section}}
   \gdef\@grizzappendixheaderpending{}
@@ -110,11 +112,14 @@
 % Call this at the end of the document, after the appendices if there are any. Otherwise,
 % call this after the last chapter.
 \newcommand{\PrintReferences}{
+  \newpage
   \phantomsection
   \addcontentsline{toc}{chapter}{REFERENCES}
+  \begingroup
   \singlespacing
   \renewcommand{\bibname}{\vspace*{10pt}REFERENCES}
   \bibliography{references}
+  \endgroup
 }
 
 % TOC formatting for the APPENDICES label inserted by \GrizzAppendix (first call only)
@@ -135,7 +140,6 @@
 
 % Typesets the cover page that is printed on the front of the book cover.
 \newcommand{\GrizzCoverPage} {
-  \setlength{\headheight}{15pt}
   \pagenumbering{gobble}
   \clearpage
   \thispagestyle{empty}
@@ -217,7 +221,6 @@
 \newcommand{\GrizzAcknowledgementsPage}{
   \thispagestyle{plain}
   \begin{center}
-    \vspace*{-0.07in}
     {ACKNOWLEDGMENTS}\vspace{2pc}
     \phantomsection
     \addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
@@ -234,7 +237,6 @@
 \newcommand{\GrizzAbstractPage}{
   \pagestyle{plain}
   \begin{center}
-    \vspace*{-0.07in}
     {ABSTRACT}\vspace{2pc}
     \phantomsection
     \addcontentsline{toc}{chapter}{ABSTRACT}
@@ -265,10 +267,8 @@
   \rhead{}
   \chead{TABLE OF CONTENTS---Continued}
   \cfoot{\thepage}
-  \addtolength{\topmargin}{0.57in}
-  \addtolength{\headsep}{0.28in}
-  \addtolength{\textheight}{-0.85in}
   \renewcommand{\headrulewidth}{0pt}
+  \addtolength{\headsep}{2.5pt}
 }
 \renewcommand{\contentsname}{TABLE OF CONTENTS}
 \setlength{\cftbeforetoctitleskip}{-7.5pt}
@@ -276,7 +276,7 @@
 \renewcommand{\cfttoctitlefont}{\hfill\normalfont\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \cftsetpnumwidth{0in}
-\cftsetrmarg{2in}
+\cftsetrmarg{1.5in}
 
 % Chapter entries in the table of contents
 \renewcommand{\cftchapindent}{0pt}
@@ -330,9 +330,6 @@
   \rhead{}
   \chead{LIST OF FIGURES---Continued}
   \cfoot{\thepage}
-  \addtolength{\topmargin}{0.57in}
-  \addtolength{\headsep}{0.28in}
-  \addtolength{\textheight}{-0.85in}
   \renewcommand{\headrulewidth}{0pt}
 }
 \renewcommand{\listfigurename}{LIST OF FIGURES}
@@ -353,21 +350,18 @@
   \rhead{}
   \chead{LIST OF TABLES---Continued}
   \cfoot{\thepage}
-  \addtolength{\topmargin}{0.57in}
-  \addtolength{\headsep}{0.28in}
-  \addtolength{\textheight}{-0.85in}
   \renewcommand{\headrulewidth}{0pt}
 }
 \renewcommand{\listtablename}{LIST OF TABLES}
 \renewcommand{\cftlottitlefont}{\hfill\normalfont\MakeUppercase}
 \renewcommand{\cftafterlottitle}{\hfill}
-\setlength{\cftbeforelottitleskip}{-0.1in}
-\setlength{\cftafterlottitleskip}{0.55in}
+\setlength{\cftbeforelottitleskip}{-7.5pt}
+\setlength{\cftafterlottitleskip}{0.38in}
 \renewcommand{\cftdot}{}
 \renewcommand{\cfttabpresnum}{Table }
 \renewcommand{\cfttabindent}{0pc}
-\renewcommand{\cfttabnumwidth}{1in}
-\renewcommand{\cfttabafterpnum}{\vspace*{12pt}}
+\renewcommand{\cfttabnumwidth}{1.0in}
+\renewcommand{\cfttabafterpnum}{\vspace{12pt}}
 
 % List of abbreviations
 \fancypagestyle{loastyle}{
@@ -376,13 +370,10 @@
   \rhead{}
   \chead{LIST OF ABBREVIATIONS---Continued}
   \cfoot{\thepage}
-  \addtolength{\topmargin}{0.57in}
-  \addtolength{\headsep}{0.28in}
-  \addtolength{\textheight}{-0.85in}
   \renewcommand{\headrulewidth}{0pt}
 }
 \newglossarystyle{grizz_glossary}{
-  \renewcommand{\glossaryname}{\vspace*{0.2in}LIST OF ABBREVIATIONS}
+  \renewcommand{\glossaryname}{\vspace{-0.44in}LIST OF ABBREVIATIONS}
   % put the glossary in the tabular environment:
   \renewenvironment{theglossary}%
     {\noindent\begin{longtable}{p{1.13in}p{4.37in}}}{\end{longtable}}%
@@ -407,9 +398,6 @@
   \rhead{}
   \chead{}
   \cfoot{\thepage}
-  \addtolength{\topmargin}{-0.57in}
-  \addtolength{\headsep}{-0.28in}
-  \addtolength{\textheight}{0.85in}
   \renewcommand{\headrulewidth}{0pt}
 }
 
@@ -421,6 +409,11 @@
 % Indentation
 \raggedright
 \setlength{\parindent}{0.5in}
+
+% Figure placement spacing
+\setlength{\intextsep}{0.75in}
+\setlength{\textfloatsep}{0.75in}
+\setlength{\floatsep}{0.75in}
 
 % Heading formatting
 \titlespacing{\chapter}{0pt}{-3pc}{0pc}
@@ -480,4 +473,52 @@
   \section*{#1}
 }
 
+\newcommand{\PrintLists}{
+  \newgeometry{top=1.5in, bottom=1.25in, left=1.5in, right=1in, includefoot}
+  \newpage
+  \pagestyle{tocstyle}
+  ~\vspace{-0.625in}
+  \tableofcontents
+  \newpage
+
+  \phantomsection
+  \addcontentsline{toc}{chapter}{LIST OF TABLES}
+  \begingroup
+  \pagestyle{lotstyle}
+  ~\vspace{-0.625in}
+  \listoftables
+  \newpage
+  \endgroup
+
+  \phantomsection
+  \addcontentsline{toc}{chapter}{LIST OF FIGURES}
+  \begingroup
+  \pagestyle{lofstyle}
+  \makeatletter
+  \let\ps@plain\ps@normal
+  \makeatother
+  ~\vspace{-0.625in}
+  \listoffigures
+  \newpage
+  \endgroup
+
+  \phantomsection
+  \addcontentsline{toc}{chapter}{LIST OF ABBREVIATIONS}
+  \begingroup
+  \pagestyle{loastyle}
+  \makeatletter
+  \let\ps@plain\ps@normal
+  \makeatother
+  \printglossary[style=grizz_glossary]
+  \newpage
+  \endgroup
+
+  \restoregeometry
+
+  \pagestyle{normal}
+}
+\setlength{\headheight}{15pt}
+\makeglossaries
+
 %%%
+

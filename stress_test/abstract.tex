@@ -1,0 +1,22 @@
+The design of crewed and robotic interplanetary missions requires the simultaneous optimization of
+competing objectives across propulsion, trajectory, power, and communications subsystems. This
+dissertation presents an integrated framework for mission design that couples high-fidelity trajectory
+optimization with multidisciplinary systems analysis to enable rapid trade-space exploration during the
+early phases of mission planning.
+
+A variational formulation of the optimal control problem is derived and discretized using a
+pseudospectral collocation scheme. The resulting nonlinear program is solved with a sequential
+quadratic programming algorithm augmented by a warm-start heuristic based on patched-conic
+approximations, yielding an order-of-magnitude reduction in wall-clock solve time compared with
+gradient-free methods commonly used in preliminary design.
+
+The framework is validated against published mission data for three reference cases: an Earth-Moon
+cargo delivery, a Mars sample-return mission, and an outer solar system flyby sequence. In all cases,
+the recovered trajectories match the published delta-V budgets to within \SI{2}{\percent} while
+reducing the number of required subsystem evaluations by a factor of four.
+
+Parametric sensitivity analyses reveal that launch vehicle performance has a stronger influence on
+total mission cost than either specific impulse or parking orbit altitude for the Mars case, a result
+that inverts the conventional design intuition derived from single-objective optimization. The
+findings suggest that integrated trajectory-systems co-optimization should be adopted as standard
+practice during Phase A mission studies.
